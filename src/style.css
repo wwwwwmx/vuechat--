@@ -1,0 +1,126 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to left bottom, #DD6455, #a18cd1);
+}
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+.card {
+  padding: 2em;
+}
+#app {
+  max-width: 1280px;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+.home-container {
+  width: 100%;
+  height: 100%;
+  background-color: aliceblue;
+}
+.home-container .left-container {
+  float: left;
+  width: 400px;
+}
+.home-container .left-container li {
+  list-style: none;
+  padding: 10px;
+  height: 50px;
+  border-bottom: 1px solid black;
+}
+.home-container .left-container li::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+}
+.home-container .left-container li .img-container {
+  float: left;
+  width: 50px;
+  height: 50px;
+}
+.home-container .left-container li .img-container img {
+  width: 100%;
+  height: 100%;
+}
+.home-container .left-container li .content-container {
+  float: left;
+  width: 310px;
+  height: 50px;
+  padding-left: 20px;
+}
+.home-container .left-container li .content-container div {
+  margin-left: 5px;
+}
+.home-container .left-container li .content-container div .top-time {
+  float: right;
+  margin-right: 3px;
+}
+.home-container .right-container {
+  margin-left: 400px;
+  width: auto;
+  height: 100%;
+  border: 1px solid black;
+}
+.home-container .right-container .chat-name {
+  height: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 30px;
+  line-height: 30px;
+  border-bottom: 1px solid gray;
+}
+.home-container .right-container .chat-history {
+  width: 100%;
+  min-height: 420px;
+}
+.home-container .right-container .chat-function {
+  width: 100%;
+  height: 135px;
+  border-top: 1px solid gray;
+}
