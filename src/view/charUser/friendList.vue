@@ -7,7 +7,7 @@
       </div>
       <div>
         <ul class="ul">
-          <li v-for="item in group.groups" :key="item">
+          <li v-for="item in group.groups" :key="item" @click="showdetail(item)">
             <div class="item-container">
               <div class="item-ul">
                 <el-icon>
@@ -35,17 +35,17 @@
     <div class="right-container">
       <div class="list-container">
         <div class="list-name">
-          <div class="list-left">1233</div>
+          <div class="list-left"><img :src="userMess.imgUrl" alt=""></div>
           <div class="list-right">
             <div class="wechat-list">
-              用户名
+              {{ userMess }}
               <el-icon>
                 <Female />
                 <Male />
               </el-icon>
             </div>
-            <div class="wechat-style">微信号:</div>
-            <div class="wechat-style">地区:</div>
+            <div class="wechat-style">微信号: {{ userMess.account }}</div>
+            <div class="wechat-style">地区:{{ userMess.city }}</div>
           </div>
         </div>
         <div class="list-detail">
@@ -69,7 +69,15 @@ import { indexStore } from '../../store/index'
 import { onMounted, toRefs, reactive } from 'vue'
 import { reqGetFriend, reqLogin } from '@/newApi/index'
 import alertWindow from '@/view/public/alertWindow.vue'
+import { useRoute } from 'vue-router';
 let userInfo = toRefs(indexStore())
+let userMess = reactive({
+  account: "",
+  imgUrl: "",
+  userName: "",
+  nickName: '',
+  city: ''
+})
 let group = reactive({
   groups: [
     {
@@ -85,22 +93,30 @@ let group = reactive({
   ],
 })
 onMounted(async () => {
-  let id = userInfo.userInfo.value._id
-  let { data, status } = await reqGetFriend({ data: id })
+  const route = useRoute()
+  // 模拟根据id获取数据
+  let { data, status } = await reqGetFriend({ data: route.query.id })
   if (status == 200) {
     group.groups = data.data[0].groups;
   }
   group.groups[0].friends.forEach(async (item) => {
     if (status == 200) {
-      let { data, status } = await reqLogin({ id: item.id })
+      let { data, status } = await reqLogin({ id: route.query.id })
       item = { 'nickName': item.nickName, ...data.data }
       console.log(item, 'data')
     }
   })
-  console.log(group, 'friends里面')
 })
 const add = () => {
   console.log('123')
+}
+const showdetail = async (item: any) => {
+  let id = item.friends[0].id;
+  let nickName = item.friends[0].nickName
+  console.log(id)
+  let { data } = await reqLogin({ id: id })
+  userMess = { ...data.data, nickName }
+  console.log(userMess)
 }
 // const showWindow=()=>{
 //   $ref.

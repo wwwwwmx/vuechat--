@@ -19,8 +19,14 @@ import Main from '@/components/Main.vue';
     width: 100%;
     height: 100%;
 
+    /deep/.el-container {
+        height: 650px;
+        // width: 100%;
+    }
+
     /deep/.el-aside {
         width: 100px;
+        height: 100%;
     }
 
     /deep/.el-main {
@@ -28,5 +34,6 @@ import Main from '@/components/Main.vue';
         height: 100%;
         --el-main-padding: 0px;
     }
+
 }
 </style>

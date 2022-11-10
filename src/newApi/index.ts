@@ -38,5 +38,34 @@ export const reqAddFriend = (params: any) => {
   return request({ url: "/add-friend", method: "post", data: { params } });
 };
 export const reqDeleteFriend = (params: any) => {
-  return request({ url: "/delete-friend", method: "post", data: { params } });
+  console.log(params);
+  return request({ url: "/delete-friend", method: "post", data: params });
+};
+
+export const reqChangeList = (params: any) => {
+  console.log(params, "vhangelistparams");
+  return request({
+    url: "/aboutfriendlist/change-list",
+    method: "post",
+    data: params,
+  });
+};
+export const reqAddList = (params: any) => {
+  return request({ url: "/add-list", method: "post", data: { params } });
+};
+export const reqDeleteList = (params: any) => {
+  console.log(params, "params");
+  return request({
+    url: "/aboutfriendlist/delete-list",
+    method: "post",
+    data: params,
+  });
+};
+export const reqGetList = (params: any) => {
+  console.log(params);
+  return request({
+    url: "/aboutfriendlist/get-list",
+    method: "get",
+    data: { params },
+  });
 };

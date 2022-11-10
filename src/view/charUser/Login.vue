@@ -46,15 +46,22 @@ import { reqRegister, reqLogin } from '@/newApi/index'
 import md5 from "js-md5";
 import pinia from '../../store/store'
 // const SystemDataStore = useSystemDataStore(pinia)
-import router from '@/router';
+import { useRouter } from 'vue-router';
 let IsLogin = ref(true)
 let noRight = ref(false)
+let salt = ref('vuechat_V1.0.0')
 let userInfo = reactive({
   account: '',
   password: '',
   confirmPass: '',
-  verificate: ''
+  verificate: '',
+  _id: ''
 })
+let form = reactive({
+  account: '',
+  password: ''
+})
+const router = useRouter()
 const registerUser = async () => {
   //判断是否有非空的逻辑
   if (userInfo.account == '' || userInfo.password == '' || userInfo.confirmPass == '') {
@@ -69,7 +76,6 @@ const registerUser = async () => {
       else {
         userInfo.password = md5(userInfo.password)
         let config = await reqRegister(userInfo)
-        userInfo
       }
     }
     else {
@@ -84,26 +90,24 @@ const LoginUser = async () => {
   }
   else {
     if (userInfo.verificate == identifyCode.value) {
-      let { data } = await reqLogin({ data: userInfo.account })
+      userInfo.password = salt.value += md5(userInfo.password)
+      form = {
+        account: userInfo.account,
+        password: userInfo.password
+      }
+      let { data } = await reqLogin(form)
       console.log(data)
       if (data.data.length) {
-        console.log(data.data[0])
-        let Respasword = data.data[0].passWord.substring(14)
-        if (md5(userInfo.password) == Respasword) {
-          const store = indexStore();
-          store.changeState(data.data[0])
-          console.log('成功登录')
-          console.log(store, 'store')
-          router.push({
-            path: '/list-view'
-          })
-        }
-        else {
-          alert('账号与密码不匹配')
-        }
+        console.log('成功登录')
+        router.push({
+          path: '/list-view',
+          query: {
+            id: data.data[0]._id
+          },
+        })
       }
       else {
-        alert('该用户不存在请先注册')
+        alert('账号与密码不匹配')
       }
     }
     else {
